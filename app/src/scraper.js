@@ -72,7 +72,7 @@ function buildSearchUrl(config, date) {
 
 async function isVerificationPage(page) {
   const text = normalizeText(await page.locator('body').innerText().catch(() => ''));
-  return /captcha|verify you are human|security check|unusual traffic|confirm you are a human/i.test(text);
+  return /captcha|verify you are human|security check|unusual traffic|confirm you are a human|person or a robot|accessible challenge|press (&|and) hold|are you a robot|bot detection/i.test(text);
 }
 
 async function waitForManualVerification(page) {
@@ -215,8 +215,21 @@ async function extractFlightsFromPage(page, context) {
 }
 
 async function scrapeFlights(config, progress, onDateProcessed) {
-  const browser = await chromium.launch({ headless: config.headless });
-  const page = await browser.newPage();
+  const browser = await chromium.launch({
+    headless: config.headless,
+    args: ['--disable-blink-features=AutomationControlled'],
+  });
+  const context = await browser.newContext({
+    locale: config.locale,
+    userAgent:
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+    viewport: { width: 1366, height: 900 },
+  });
+  // Mask the automation fingerprint that triggers Skyscanner's bot challenge.
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+  });
+  const page = await context.newPage();
   const processedDates = new Set(progress.processedDates || []);
   let flights = Array.isArray(progress.flights) ? [...progress.flights] : [];
 

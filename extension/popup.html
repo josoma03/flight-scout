@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FlightScout</title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>FlightScout</h1>
+
+        <div class="status">
+            <span>Flights captured</span>
+            <strong id="flightCount">0</strong>
+        </div>
+
+        <div class="actions">
+
+            <button id="viewButton">
+                View results
+            </button>
+
+            <button id="copyButton">
+                Copy table
+            </button>
+
+            <button id="csvButton">
+                Export CSV
+            </button>
+
+            <button
+                id="clearButton"
+                class="danger"
+            >
+                Clear
+            </button>
+
+        </div>
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+    </div>
+
+    <script src="popup.js"></script>
+
+</body>
+</html>
