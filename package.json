@@ -1,0 +1,20 @@
+{
+  "name": "flight-scout",
+  "version": "1.0.0",
+  "description": "Automated flight search and comparison tool that scans multiple travel dates, extracts flight details and prices, and exports the results for easy comparison.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://localhost:26831/josoma03/flight-scout"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.63.0"
+  }
+}

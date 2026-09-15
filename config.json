@@ -1,0 +1,12 @@
+{
+  "origin": "MLA",
+  "destination": "CUN",
+  "startDate": "2026-10-01",
+  "endDate": "2026-10-03",
+  "adults": 1,
+  "currency": "USD",
+  "searchDelayMs": 5000,
+  "headless": false,
+  "locale": "en-US",
+  "market": "US"
+}
