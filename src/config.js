@@ -4,6 +4,28 @@ const { createConfigSignature, generateDateRange } = require('./utils');
 
 const DEFAULT_CONFIG_PATH = path.resolve(process.cwd(), 'config.json');
 
+function parseBoolean(value, fieldName, defaultValue) {
+  if (value === undefined) {
+    return defaultValue;
+  }
+
+  if (typeof value === 'boolean') {
+    return value;
+  }
+
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    if (normalized === 'true') {
+      return true;
+    }
+    if (normalized === 'false') {
+      return false;
+    }
+  }
+
+  throw new Error(`${fieldName} must be a boolean.`);
+}
+
 async function loadConfig(configPath = DEFAULT_CONFIG_PATH) {
   const rawConfig = await fs.readFile(configPath, 'utf8');
   const parsedConfig = JSON.parse(rawConfig);
@@ -22,7 +44,7 @@ async function loadConfig(configPath = DEFAULT_CONFIG_PATH) {
     adults: Number(parsedConfig.adults),
     currency: String(parsedConfig.currency).trim().toUpperCase(),
     searchDelayMs: Number(parsedConfig.searchDelayMs ?? 5000),
-    headless: Boolean(parsedConfig.headless ?? false),
+    headless: parseBoolean(parsedConfig.headless, 'headless', false),
     locale: String(parsedConfig.locale ?? 'en-US').trim(),
     market: String(parsedConfig.market ?? 'US').trim().toUpperCase(),
   };

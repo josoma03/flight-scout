@@ -54,8 +54,10 @@ async function saveProgress({ signature, processedDates, flights }) {
     flights: sortFlights(dedupeFlights(flights)),
     updatedAt: new Date().toISOString(),
   };
+  const tempPath = `${PROGRESS_PATH}.tmp`;
 
-  await fs.writeFile(PROGRESS_PATH, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+  await fs.writeFile(tempPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+  await fs.rename(tempPath, PROGRESS_PATH);
   return payload;
 }
 

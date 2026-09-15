@@ -17,6 +17,13 @@ test('generateDateRange returns an inclusive list of dates', () => {
   ]);
 });
 
+test('generateDateRange rejects impossible calendar dates', () => {
+  assert.throws(
+    () => generateDateRange('2026-02-30', '2026-03-01'),
+    /Invalid startDate: 2026-02-30/,
+  );
+});
+
 test('formatSkyscannerDate converts ISO dates to Skyscanner format', () => {
   assert.equal(formatSkyscannerDate('2026-10-03'), '261003');
 });

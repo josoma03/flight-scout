@@ -17,7 +17,7 @@ npx playwright install chromium
 
 ## Configuration
 
-Edit `/home/runner/work/flight-scout/flight-scout/config.json`:
+Edit `config.json` in the project root:
 
 ```json
 {
